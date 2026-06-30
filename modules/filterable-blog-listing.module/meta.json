@@ -1,0 +1,16 @@
+{
+  "content_tags": [
+    {
+      "name": "BLOG",
+      "source": "USER"
+    }
+  ],
+  "global": false,
+  "content_types": ["BLOG_LISTING"],
+  "categories": ["FUNCTIONALITY"],
+  "host_template_types": ["PAGE", "BLOG_POST"],
+  "module_id": 0,
+  "label": "Filterable Blog Listing",
+  "icon": "fontawesome-5.14.0:Filter",
+  "is_available_for_new_content": true
+}

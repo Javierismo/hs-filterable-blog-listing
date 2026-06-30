@@ -1,0 +1,234 @@
+[
+  {
+    "id": "b6f4ed4a-31ca-4b96-9e2e-032826ac91de",
+    "name": "heading",
+    "label": "Heading content",
+    "tab": "CONTENT",
+    "type": "richtext",
+    "default": "<h2>Latest articles</h2><p>Explore the latest posts from the blog.</p>"
+  },
+  {
+    "id": "f5f37f18-77fe-496f-93b5-ef4ddf758f8b",
+    "name": "show_filters",
+    "label": "Show filters",
+    "tab": "CONTENT",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "id": "be89d31f-a56f-458b-8869-3c180e69570d",
+    "name": "filters",
+    "label": "Filter settings",
+    "tab": "CONTENT",
+    "type": "group",
+    "children": [
+      {
+        "id": "0ad4acb0-2d6f-40f9-912a-53e3422a2fe1",
+        "name": "all_posts_text",
+        "label": "All posts label",
+        "type": "text",
+        "default": "All Posts",
+        "visibility": {
+          "controlling_field": "f5f37f18-77fe-496f-93b5-ef4ddf758f8b",
+          "operator": "EQUAL",
+          "controlling_value_regex": "true"
+        }
+      },
+      {
+        "id": "3eb0fc7a-c3e0-4787-8cf5-2f7ce7438a8d",
+        "name": "blog_tags_limit",
+        "label": "Blog tags limit",
+        "type": "number",
+        "display": "text",
+        "min": 1,
+        "max": 30,
+        "default": 10,
+        "visibility": {
+          "controlling_field": "f5f37f18-77fe-496f-93b5-ef4ddf758f8b",
+          "operator": "EQUAL",
+          "controlling_value_regex": "true"
+        }
+      }
+    ]
+  },
+  {
+    "id": "95d9bafc-39c6-4b53-9d7d-2cb6e34f09f3",
+    "name": "card_options",
+    "label": "Card options",
+    "tab": "CONTENT",
+    "type": "group",
+    "children": [
+      {
+        "id": "22f3f173-d293-4e6d-b0da-dcb1795f5521",
+        "name": "show_featured_image",
+        "label": "Show featured image",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "id": "3c683b7f-0df4-4113-9f05-4c02da3c1c73",
+        "name": "show_tags",
+        "label": "Show tags on card",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "id": "f0f90e95-e4df-4a0e-8458-f6ab4ee4903f",
+        "name": "show_summary",
+        "label": "Show summary",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "id": "0224d01a-a556-42ea-8dc5-f6581e6f3277",
+        "name": "summary_length",
+        "label": "Summary length (characters)",
+        "type": "number",
+        "display": "text",
+        "min": 60,
+        "max": 280,
+        "default": 140,
+        "visibility": {
+          "controlling_field": "f0f90e95-e4df-4a0e-8458-f6ab4ee4903f",
+          "operator": "EQUAL",
+          "controlling_value_regex": "true"
+        }
+      },
+      {
+        "id": "c08e6497-f07d-4224-9d32-4020b37e0246",
+        "name": "show_publish_date",
+        "label": "Show publish date",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "id": "b41e4dd1-58f1-42c3-912c-487b3b9b9ccb",
+        "name": "show_author",
+        "label": "Show author",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  {
+    "id": "92d0139f-f8b1-4613-a5ce-66321a95e85e",
+    "name": "load_more_text",
+    "label": "Load more label",
+    "tab": "CONTENT",
+    "type": "text",
+    "default": "Load more"
+  },
+  {
+    "id": "71afbb7e-c057-4c83-a4ad-caf81dc7732b",
+    "name": "loading_text",
+    "label": "Loading label",
+    "tab": "CONTENT",
+    "type": "text",
+    "default": "Loading..."
+  },
+  {
+    "id": "f1f0b3fd-7977-40ec-bbd4-13392d59231f",
+    "name": "no_more_posts_text",
+    "label": "No more posts message",
+    "tab": "CONTENT",
+    "type": "text",
+    "default": "No more posts to load."
+  },
+  {
+    "id": "a2b3c4d5-e6f7-4a1b-2c3d-4e5f6a7b8c9d",
+    "name": "error_text",
+    "label": "Error message",
+    "tab": "CONTENT",
+    "type": "text",
+    "default": "Failed to load posts. Please try again."
+  },
+  {
+    "id": "8bc1f4e7-d06f-494f-90a6-f568b8e9d8af",
+    "name": "style",
+    "label": "Style",
+    "tab": "STYLE",
+    "type": "group",
+    "children": [
+      {
+        "id": "46eb5049-6624-4925-b877-f2d9a528f55e",
+        "name": "card_background_color",
+        "label": "Card background",
+        "type": "color",
+        "default": {
+          "color": "#ffffff",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "3eab4ecf-a1f4-4f52-b767-f2ca42f6af7a",
+        "name": "card_border_color",
+        "label": "Card border",
+        "type": "color",
+        "default": {
+          "color": "#d9d9d9",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "89eb6922-2867-48c2-84a8-5f3707e911cf",
+        "name": "title_color",
+        "label": "Title color",
+        "type": "color",
+        "default": {
+          "color": "#191919",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "ea2f3ad5-ba30-48b2-9102-4574ec9480f0",
+        "name": "meta_color",
+        "label": "Meta color",
+        "type": "color",
+        "default": {
+          "color": "#666666",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "42609414-1267-4c22-84f3-c614de8d6d42",
+        "name": "button_text_color",
+        "label": "Button text",
+        "type": "color",
+        "default": {
+          "color": "#191919",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "845fcf1c-ab7f-47ff-8cb2-7d76f4fe492f",
+        "name": "button_background_color",
+        "label": "Button background",
+        "type": "color",
+        "default": {
+          "color": "#f3f3f3",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "bd3ae1d1-6c44-4360-baaf-bdce2a0173f6",
+        "name": "button_active_text_color",
+        "label": "Button active text",
+        "type": "color",
+        "default": {
+          "color": "#ffffff",
+          "opacity": 100
+        }
+      },
+      {
+        "id": "68d6f024-19cb-4d2d-acbf-dda89bb08fe2",
+        "name": "button_active_background_color",
+        "label": "Button active background",
+        "type": "color",
+        "default": {
+          "color": "#191919",
+          "opacity": 100
+        }
+      }
+    ]
+  }
+]

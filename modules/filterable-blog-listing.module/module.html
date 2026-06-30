@@ -1,0 +1,162 @@
+{# Keep the base blog URL separate so filtering and load-more requests can reuse the same endpoint logic. #}
+{% set blog_base_url = blog_page_link(1)|regex_replace('/page/1/?$', '') %}
+
+{% require_css %}
+<style>
+	{% scope_css %}
+		{# CSS variables are only emitted when a color is configured so the module can fall back cleanly to defaults. #}
+		{% if module.style.card_background_color.color %}
+			.ht-filterable-blog-listing {
+				--ht-fbl-card-background: {{ module.style.card_background_color.color }};
+			}
+		{% endif %}
+
+		{% if module.style.card_border_color.color %}
+			.ht-filterable-blog-listing {
+				--ht-fbl-card-border: {{ module.style.card_border_color.color }};
+			}
+		{% endif %}
+
+		{% if module.style.title_color.color %}
+			.ht-filterable-blog-listing {
+				--ht-fbl-title-color: {{ module.style.title_color.color }};
+			}
+		{% endif %}
+
+		{% if module.style.meta_color.color %}
+			.ht-filterable-blog-listing {
+				--ht-fbl-meta-color: {{ module.style.meta_color.color }};
+			}
+		{% endif %}
+
+		{% if module.style.button_text_color.color %}
+			.ht-filterable-blog-listing {
+				--ht-fbl-button-text: {{ module.style.button_text_color.color }};
+			}
+		{% endif %}
+
+		{% if module.style.button_background_color.color %}
+			.ht-filterable-blog-listing {
+				--ht-fbl-button-background: {{ module.style.button_background_color.color }};
+			}
+		{% endif %}
+
+		{% if module.style.button_active_text_color.color %}
+			.ht-filterable-blog-listing {
+				--ht-fbl-button-active-text: {{ module.style.button_active_text_color.color }};
+			}
+		{% endif %}
+
+		{% if module.style.button_active_background_color.color %}
+			.ht-filterable-blog-listing {
+				--ht-fbl-button-active-background: {{ module.style.button_active_background_color.color }};
+			}
+		{% endif %}
+	{% end_scope_css %}
+</style>
+{% end_require_css %}
+
+
+{# The section uses semantic HTML and ARIA hooks so the JavaScript can update loading states without rewriting markup. #}
+<section class="ht-filterable-blog-listing" aria-labelledby="filterable-blog-listing-heading" aria-busy="false" data-blog-url="{{ blog_base_url }}">
+ 
+
+	{% if module.heading %}
+		{# Section heading. #}
+		<div class="ht-filterable-blog-listing__heading" id="filterable-blog-listing-heading">
+			{{ module.heading }}
+		</div>
+	{% endif %}
+
+	{% if module.show_filters %}
+		{# Filter buttons are rendered from HubSpot blog tags to keep the content model aligned with the blog itself. #}
+		<div class="ht-filterable-blog-listing__filter-tags" id="tagFilterContainer">
+			{% if contents %}
+				<button class="ht-filterable-blog-listing__filter-tag ht-filterable-blog-listing__filter-tag--active" data-tag="all" type="button">{{ module.filters.all_posts_text|default('All Posts') }}</button>
+				
+				{% set blog_tags = blog_tags("default", module.filters.blog_tags_limit|default(10)) %}
+					
+				{% for tag in blog_tags %}
+					<button class="ht-filterable-blog-listing__filter-tag" data-tag="{{ tag.slug }}" type="button">{{ tag.name }}</button>
+				{% endfor %}
+			{% endif %}
+		</div>
+	{% endif %}
+
+	{# Cards layout. #}
+	<div class="ht-filterable-blog-listing__grid blog-posts-container" id="blogContainer">
+		
+		{% for content in contents %}
+			<article class="ht-filterable-blog-listing__card blog-post-card">
+
+				<a class="ht-filterable-blog-listing__card-link" href="{{ content.absolute_url }}" aria-label="Read more about {{ content.name }}"></a>
+			
+				{% if module.card_options.show_featured_image %}
+					{% if content.featured_image %}
+						<div class="ht-filterable-blog-listing__media post-image">
+							<img class="ht-filterable-blog-listing__image" src="{{ resize_image_url(content.featured_image, 1200, 0, 0 ) }}" alt="{{ content.name }}" loading="lazy" width="600" height="300">
+						</div>
+					{% else %}
+						<div class="ht-filterable-blog-listing__media post-image">
+							<img class="ht-filterable-blog-listing__image" src="https://thedeveloper.javierfuentes.cl/hs-fs/hubfs/Imported_Blog_Media/photo-1507721999472-8ed4421c4af2-1.jpg?width=1200&height=600&name=photo-1507721999472-8ed4421c4af2-1.jpg" alt="{{ content.name }}" loading="lazy">
+						</div>
+					{% endif %}
+				{% endif %}
+
+				<div class="ht-filterable-blog-listing__content post-content">
+
+					{% if module.card_options.show_tags and content.tag_list %}
+						<ul class="ht-filterable-blog-listing__topics" aria-label="Post tags">
+							{% for tag in content.tag_list %}
+								<li class="ht-filterable-blog-listing__topic"><a class="ht-filterable-blog-listing__topic-link" href="{{ blog_tag_url(group.id, tag.slug) }}">{{ tag.name }}</a></li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+
+					<h3 class="ht-filterable-blog-listing__title">
+						{{ content.name }}
+					</h3>
+					
+					{% if module.card_options.show_summary %}
+						<p class="ht-filterable-blog-listing__summary">{{ content.post_list_content|striptags|truncate(module.card_options.summary_length, True, '...') }}</p>
+					{% endif %}
+
+					{% if (module.card_options.show_author and content.blog_post_author) or (module.card_options.show_publish_date and content.publish_date) %}
+						<div class="ht-filterable-blog-listing__meta-row">
+							
+							{% if module.card_options.show_author and content.blog_post_author %}
+								<p class="ht-filterable-blog-listing__meta ht-filterable-blog-listing__author">By <a class="ht-filterable-blog-listing__author-link" href="{{ blog_author_url(group.id, content.blog_post_author.slug) }}">{{ content.blog_post_author.display_name }}</a></p>
+							{% endif %}
+
+							{% if module.card_options.show_publish_date and content.publish_date %}
+								<p class="ht-filterable-blog-listing__meta ht-filterable-blog-listing__date">{{ content.publish_date|format_date('MMM dd, yyyy') }}</p>
+							{% endif %}
+
+						</div>
+					{% endif %}
+
+				</div>
+			</article>
+		{% endfor %}
+	</div>
+
+	{# The action area groups the load-more button with its loading, end, and error states for easier state management. #}
+	<div class="ht-filterable-blog-listing__actions load-more-wrapper">
+			
+		<button class="ht-filterable-blog-listing__load-more" type="button" id="loadMoreBtn" aria-controls="blogContainer" data-pages="{{ contents.total_page_count }}" data-current-page="{{ current_page_num }}">
+			{{ module.load_more_text|default('Load more') }}
+		</button>
+		
+		<div class="ht-filterable-blog-listing__loader" id="blogLoader" style="display: none;" role="status" aria-live="polite">
+			{{ module.loading_text|default('Loading...') }}
+		</div>
+
+	</div>
+
+	{# These state messages are hidden by default and are toggled by JavaScript during async updates. #}
+	  <p class="ht-filterable-blog-listing__end-message" id="blogEndMessage" hidden>{{ module.no_more_posts_text|default('No more posts to load.') }}</p>
+
+  	<div class="ht-filterable-blog-listing__error-message" id="blogErrorMessage" hidden role="alert" aria-live="assertive">{{ module.error_text|default('Failed to load posts. Please try again.') }}</div>
+
+</section>
+
