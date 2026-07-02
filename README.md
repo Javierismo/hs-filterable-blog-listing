@@ -71,3 +71,9 @@ This module is intended to stay maintainable for long-term client work:
 ## Preview
 
 ![Cards and filter list](assets/hs-filterable-blog-listing.jpg)
+
+## Author
+
+Developed by **Javier Fuentes**
+
+- GitHub: https://github.com/Javierismo

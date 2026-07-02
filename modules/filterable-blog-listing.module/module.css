@@ -1,4 +1,10 @@
-/* Module variables */
+/*!
+ * HubSpot Filterable Blog Listing Module
+ * Author: Javier Fuentes
+ * MIT License
+ */
+ 
+ /* Module variables */
 .ht-filterable-blog-listing {
 	--ht-fbl-card-background: #ffffff;
 	--ht-fbl-card-border: #d9d9d9;

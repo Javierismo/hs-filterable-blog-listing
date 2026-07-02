@@ -2,58 +2,58 @@
 {% set blog_base_url = blog_page_link(1)|regex_replace('/page/1/?$', '') %}
 
 {% require_css %}
-<style>
-	{% scope_css %}
-		{# CSS variables are only emitted when a color is configured so the module can fall back cleanly to defaults. #}
-		{% if module.style.card_background_color.color %}
-			.ht-filterable-blog-listing {
-				--ht-fbl-card-background: {{ module.style.card_background_color.color }};
-			}
-		{% endif %}
+	<style>
+		{% scope_css %}
+			{# CSS variables are only emitted when a color is configured so the module can fall back cleanly to defaults. #}
+			{% if module.style.card_background_color.color %}
+				.ht-filterable-blog-listing {
+					--ht-fbl-card-background: {{ module.style.card_background_color.color }};
+				}
+			{% endif %}
 
-		{% if module.style.card_border_color.color %}
-			.ht-filterable-blog-listing {
-				--ht-fbl-card-border: {{ module.style.card_border_color.color }};
-			}
-		{% endif %}
+			{% if module.style.card_border_color.color %}
+				.ht-filterable-blog-listing {
+					--ht-fbl-card-border: {{ module.style.card_border_color.color }};
+				}
+			{% endif %}
 
-		{% if module.style.title_color.color %}
-			.ht-filterable-blog-listing {
-				--ht-fbl-title-color: {{ module.style.title_color.color }};
-			}
-		{% endif %}
+			{% if module.style.title_color.color %}
+				.ht-filterable-blog-listing {
+					--ht-fbl-title-color: {{ module.style.title_color.color }};
+				}
+			{% endif %}
 
-		{% if module.style.meta_color.color %}
-			.ht-filterable-blog-listing {
-				--ht-fbl-meta-color: {{ module.style.meta_color.color }};
-			}
-		{% endif %}
+			{% if module.style.meta_color.color %}
+				.ht-filterable-blog-listing {
+					--ht-fbl-meta-color: {{ module.style.meta_color.color }};
+				}
+			{% endif %}
 
-		{% if module.style.button_text_color.color %}
-			.ht-filterable-blog-listing {
-				--ht-fbl-button-text: {{ module.style.button_text_color.color }};
-			}
-		{% endif %}
+			{% if module.style.button_text_color.color %}
+				.ht-filterable-blog-listing {
+					--ht-fbl-button-text: {{ module.style.button_text_color.color }};
+				}
+			{% endif %}
 
-		{% if module.style.button_background_color.color %}
-			.ht-filterable-blog-listing {
-				--ht-fbl-button-background: {{ module.style.button_background_color.color }};
-			}
-		{% endif %}
+			{% if module.style.button_background_color.color %}
+				.ht-filterable-blog-listing {
+					--ht-fbl-button-background: {{ module.style.button_background_color.color }};
+				}
+			{% endif %}
 
-		{% if module.style.button_active_text_color.color %}
-			.ht-filterable-blog-listing {
-				--ht-fbl-button-active-text: {{ module.style.button_active_text_color.color }};
-			}
-		{% endif %}
+			{% if module.style.button_active_text_color.color %}
+				.ht-filterable-blog-listing {
+					--ht-fbl-button-active-text: {{ module.style.button_active_text_color.color }};
+				}
+			{% endif %}
 
-		{% if module.style.button_active_background_color.color %}
-			.ht-filterable-blog-listing {
-				--ht-fbl-button-active-background: {{ module.style.button_active_background_color.color }};
-			}
-		{% endif %}
-	{% end_scope_css %}
-</style>
+			{% if module.style.button_active_background_color.color %}
+				.ht-filterable-blog-listing {
+					--ht-fbl-button-active-background: {{ module.style.button_active_background_color.color }};
+				}
+			{% endif %}
+		{% end_scope_css %}
+	</style>
 {% end_require_css %}
 
 
@@ -154,7 +154,7 @@
 	</div>
 
 	{# These state messages are hidden by default and are toggled by JavaScript during async updates. #}
-	  <p class="ht-filterable-blog-listing__end-message" id="blogEndMessage" hidden>{{ module.no_more_posts_text|default('No more posts to load.') }}</p>
+	<p class="ht-filterable-blog-listing__end-message" id="blogEndMessage" hidden>{{ module.no_more_posts_text|default('No more posts to load.') }}</p>
 
   	<div class="ht-filterable-blog-listing__error-message" id="blogErrorMessage" hidden role="alert" aria-live="assertive">{{ module.error_text|default('Failed to load posts. Please try again.') }}</div>
 
