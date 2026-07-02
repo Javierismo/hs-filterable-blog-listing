@@ -14,6 +14,42 @@ This module is designed to give editors a flexible blog listing that can be filt
 - Editor-friendly content fields for headings, labels, and empty states
 - Module-scoped styling via HubL and CSS custom properties
 
+## Load More — Technical Approach
+
+The load more interaction uses HubSpot's native blog pagination URLs instead of
+an external API or serverless function, keeping the solution self-contained
+within the CMS.
+
+### How it works
+
+When the user clicks "Load more", the module fetches the next paginated blog URL
+(`/blog/page/2`, `/blog/page/3`, etc.) as a full HTML document, parses it with
+`DOMParser`, extracts only the `.blog-post-card` elements, and appends them to
+the existing grid — no page reload, no API key required.
+
+Tag filtering works the same way: selecting a tag fetches
+`/blog/tag/tag-slug/page/1`, replaces the current cards with the first page of
+filtered results, and resets the pagination counter.
+
+### Why this approach
+
+- Works entirely within HubSpot CMS — no serverless function or private app token needed
+- Reuses HubSpot's own rendered markup, so cards are always consistent with the
+  server-side output
+- Total page count is read from the `data-pages` attribute on the load more
+  button (set by HubL at render time), so the module knows exactly when to hide
+  the button without an extra API call
+
+### State managed by the module
+
+| Variable | Purpose |
+|---|---|
+| `currentPage` | Tracks which paginated URL to fetch next |
+| `selectedTag` | Tracks the active tag filter slug |
+| `fetching` | Prevents duplicate requests on rapid clicks |
+| `blogOutOfPosts` | Hides the button once all pages are loaded |
+| `totalPages` | Read from HubL at render, updated on filter change |
+
 ## Accessibility
 
 - Semantic markup for articles, lists, and controls
